@@ -1,0 +1,76 @@
+.launcher {
+  .widget {
+    @include floating_widget($padding: 0);
+
+    .search {
+      @if $theme =="dark" {
+        background-color: transparentize($fg, 0.95);
+      }
+
+      @else {
+        background-color: transparentize($fg, 0.9);
+      }
+
+      padding: 1rem;
+      margin: 2rem;
+      border-radius: $radius;
+
+      .icon {
+        font-size: 1.2rem;
+        color: $fg;
+      }
+
+      .input {
+        font-size: 1rem;
+        font-weight: 500;
+        color: $fg;
+        caret-color: $fg;
+      }
+    }
+
+    .scroll {
+      @include scrollbar($effect: false);
+
+      @if $theme =="dark" {
+        background-color: transparentize($fg, 0.95);
+      }
+
+      @else {
+        background-color: transparentize($fg, 0.9);
+      }
+
+      border-radius: $radius;
+      padding: 1.5rem 0 1.4rem;
+
+      .apps {
+        padding: 0 2rem;
+        color: $fg;
+
+        .app {
+          button {
+            padding: 1rem;
+            @include button($radius: $radius);
+
+            .icon {
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: center;
+              min-width: 4rem;
+              min-height: 4rem;
+            }
+
+            .name {
+              font-size: 1.1rem;
+              font-weight: 500;
+              color: $fg;
+            }
+
+            .comment {
+              color: transparentize($fg, 0.2);
+            }
+          }
+        }
+      }
+    }
+  }
+}

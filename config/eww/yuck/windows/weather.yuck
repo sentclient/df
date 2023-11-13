@@ -1,0 +1,18 @@
+(defwidget calendar_weather []
+  (revealer 
+    :transition "slideright" 
+    :reveal calendar_rev
+    (box 
+      :class "calendar_weather" 
+      :orientation "v" 
+      :space-evenly false
+      (menu_clock)
+      (box 
+        :class "bottom" 
+        :orientation "v" 
+        :space-evenly false
+        (cal) (left_weather)
+      )
+    )
+  )
+)

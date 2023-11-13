@@ -1,0 +1,30 @@
+(defwidget menu []
+  (revealer 
+    :transition "slidedown"
+    :reveal menu_rev 
+    (box
+      :class "menu"
+      (box 
+        :class "widget" 
+        :space-evenly false 
+        :spacing 15
+        (box 
+          :spacing 15 
+          :space-evenly false 
+          :orientation "v" 
+          (profile) 
+          (utils) 
+          (sliders)
+        )
+        (box 
+          :spacing 15 
+          :space-evenly false 
+          :orientation "v" 
+          (sys_info)
+          (menu_network) 
+          (media_player :player {mpris.favorite})
+        )
+      )
+    )
+  )
+)

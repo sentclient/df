@@ -1,0 +1,94 @@
+.calendar_weather {
+  @include floating_widget($padding: 0);
+
+  .clock {
+    margin: 1rem 0 2rem 0;
+
+    .time {
+      font-family: SF Mono;
+      font-weight: bolder;
+      font-size: 5rem;
+      color: $fg;
+    }
+
+    .timebox {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+
+      &.magenta {
+        color: $pink;
+      }
+
+      &.green {
+        color: $green;
+      }
+
+      &.yellow {
+        color: $yellow;
+      }
+    }
+
+    .today {
+      font-size: 1.5rem;
+      color: $fg;
+    }
+  }
+
+  .bottom {
+    border-radius: $radius;
+    padding: 2rem;
+
+    @if $theme =="dark" {
+      background-color: transparentize($fg, 0.95);
+    }
+
+    @else {
+      background-color: transparentize($fg, 0.9);
+    }
+
+    .left_weather {
+      margin-top: 2rem;
+      @include box($padding: 0);
+
+      label {
+        color: $fg;
+      }
+
+      .city {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 1.5rem;
+      }
+
+      .infos_box {
+        margin: 1rem 2rem 2rem;
+
+        .icon {
+          font-size: 3rem;
+          margin-right: 1rem;
+          text-shadow: $text_shadow;
+        }
+
+        .description,
+        .temp {
+          font-size: 1.6rem;
+          font-weight: 500;
+        }
+
+        .min_max {
+
+          .min_icon,
+          .max_icon {
+            margin-right: 1rem;
+            font-size: 1rem;
+          }
+
+          .min,
+          .max {
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+  }
+}

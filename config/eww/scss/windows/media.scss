@@ -1,0 +1,7 @@
+.media {
+  .player {
+    @include player($style: 'floating');
+    min-height: 15rem;
+    min-width: 25rem;
+  }
+}

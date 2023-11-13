@@ -1,0 +1,28 @@
+.calendar {
+  font-size: 1.1rem;
+  font-weight: 500;
+  @include box($padding: 0);
+  padding: 1rem 1rem 0 1rem;
+
+  calendar {
+    padding: 0.55rem;
+    color: $fg;
+
+    &:selected {
+      text-shadow: $text_shadow;
+      color: $pink;
+    }
+
+    &.highlight,
+    &.header,
+    &.button {
+      background-color: transparent;
+      border: none;
+      color: $pink;
+    }
+
+    &:indeterminate {
+      color: transparentize($fg, 0.7);
+    }
+  }
+}

@@ -1,0 +1,145 @@
+(defwidget media_player [player] 
+  (box
+    :class "player ${player.name}"
+    :space-evenly false
+    :hexpand true :vexpand true
+    (box 
+      :class "artwork"
+      :style "background-image: url('${player.artUrl}');"
+      :orientation "v"
+      :space-evenly false
+      :hexpand true
+      (box
+        :class "info"
+        :orientation "v"
+        :space-evenly false
+        :spacing 10
+        (label 
+          :class "title" 
+          :text {player.title}
+          :limit-width 80
+          :wrap true
+          :xalign 0
+        )
+        (label 
+          :class "artist"
+          :text {player.artist}
+          :visible {player.artist != ""}
+          :limit-width 80
+          :wrap true
+          :xalign 0
+        )
+        (label 
+          :class "album"
+          :text {player.album}
+          :visible {player.album != ""}
+          :limit-width 80
+          :wrap true
+          :xalign 0
+        )
+      )
+      (box
+        :space-evenly false
+        :orientation "v"
+        :valign "end"
+        :vexpand true
+        (eventbox :cursor "pointer"
+          :visible {player.length > 0}
+          :class "progress ${player.name}"
+          (scale
+            :value {positions[player.name].position}
+            :min 0
+            :max {player.length}
+            :onchange "playerctl -p ${player.name} position {}"
+          )
+        )
+        (box
+          :space-evenly false
+          :class "bottom"
+          :spacing 6
+          (label :class "app ${player.name}" :text {player.icon})
+          (box 
+            :class "position" 
+            :visible {player.length > 0}
+            :space-evenly false
+            :spacing 3
+            (label :class "time" :text {positions[player.name].positionStr})
+            (label :text "/" :class "time")
+            (label :class "time" :text {player.lengthStr})
+          )
+          (box
+            :class "controls"
+            :halign "end"
+            :hexpand true
+            :spacing 10
+            (eventbox :cursor "pointer"
+              (button 
+                :onclick "playerctl -p spotify shuffle toggle"
+                :class "shuffle ${player.shuffle ? "" : "disabled"}"
+                :tooltip {player.shuffle ? "On" : "Off"} 
+                :visible {player.loop != "null"} 
+                ""
+              )
+            )
+            (eventbox :cursor "pointer"
+              (button 
+                :onclick {
+                  player.loop == "None" ? 
+                  "playerctl -p spotify loop playlist" : 
+                  player.loop == "Playlist" ?
+                  "playerctl -p spotify loop track" :
+                  "playerctl -p spotify loop none"
+                }
+                :class "loop ${player.loop == 'None' ? "disabled" : ""}"
+                :tooltip {player.loop}
+                :visible {player.loop != "null"}
+                {player.loop == "Track" ? "" :player.loop == "Playlist" ? "" : ""}
+              )
+            )
+            (eventbox :cursor {player.canGoPrevious ? "pointer" : "not-allowed"}
+              (button 
+                :class "previous ${player.canGoPrevious ? "" : "disabled"}" 
+                :onclick "playerctl -p ${player.name} previous" 
+                ""
+              )
+            )
+            (eventbox :cursor "pointer"
+              (button 
+                :class "toggle ${player.canPlay ? "" : player.canPause ? "" : "disabled"}" 
+                :width 20
+                :onclick "playerctl -p ${player.name} play-pause" 
+                {
+                  player.status == "Playing" ? "" : 
+                  player.status == "Paused" ? "" : 
+                  ""
+                }
+              )
+            )
+            (eventbox :cursor {player.canGoNext ? "pointer" : "not-allowed"}
+              (button 
+                :class "next ${player.canGoNext ? "" : "disabled"}" 
+                :onclick "playerctl -p ${player.name} next" ""
+              )
+            )
+          )
+        )
+      )
+    )
+    (box 
+      :class "volume" 
+      :visible {player.volume != -1}
+      :orientation "v"
+      (eventbox :cursor "pointer"
+        (scale
+          :class "scale ${player.name}"
+          :flipped true
+          :orientation "v"
+          :min 0
+          :max 99
+          :value {player.volume}
+          :onchange "playerctl -p ${player.name} volume '0.{}'"
+        )
+      )
+    )
+  )
+)

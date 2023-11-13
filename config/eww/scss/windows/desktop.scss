@@ -1,0 +1,48 @@
+.desktop {
+  .info {
+    text-shadow: $text_shadow;
+
+    .clock {
+      .time {
+        font-size: 10rem;
+        font-weight: bold;
+        color: $fg;
+      }
+
+      .timebox {
+        font-size: 1.2rem;
+
+        &.magenta {
+          color: $pink;
+        }
+
+        &.green {
+          color: $green;
+        }
+
+        &.yellow {
+          color: $yellow;
+        }
+      }
+    }
+
+    .today {
+      font-size: 2rem;
+      font-weight: 500;
+      color: $fg;
+    }
+
+    .weather {
+      .icon {
+        font-size: 2.5rem;
+        margin-top: .7rem;
+      }
+
+      .desc,
+      .temp {
+        font-size: 1.2rem;
+        color: $fg;
+      }
+    }
+  }
+}

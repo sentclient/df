@@ -1,0 +1,39 @@
+(defwidget launcher []
+  (box
+    :class "launcher"
+    :orientation "v"
+    (box
+      :class "widget"
+      :orientation "v"
+      :space-evenly false
+      (box
+        :class "search"
+        :space-evenly false
+        :hexpand true
+        :spacing 15
+        (label :text "" :class "icon")
+        (input
+          :class "input"
+          :hexpand true
+          :onchange "scripts/apps query {}"
+          :onaccept "cd ~ && gtk-launch ${apps.apps[0].desktop} && actions launcher"
+        )
+      )
+      (scroll :class "scroll"
+        :vscroll true
+        :vexpand true
+        (box :class "apps"
+          :orientation "v"
+          :space-evenly false :spacing 10
+          (for app in {apps.apps}
+            (eventbox
+              :class "app"
+              :cursor "pointer"
+              (application :app app)
+            )
+          )
+        )
+      )
+    )
+  )
+)

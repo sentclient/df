@@ -1,0 +1,8 @@
+(defwidget dock_app [app] 
+  (eventbox
+    :tooltip {app.name}
+    (button :class "icons" :onclick "cd ~ && gtk-launch ${app.desktop}"
+      (box :class "icon" :style "background-image: url('${app.icon}')")
+    )
+  )
+)

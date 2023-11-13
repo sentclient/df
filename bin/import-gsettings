@@ -1,0 +1,34 @@
+#!/bin/sh
+
+gtk3="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
+gtk2="$HOME/.gtkrc-2.0"
+foot="$XDG_CONFIG_HOME/foot/foot.ini"
+hypr="$XDG_CONFIG_HOME/hypr/theme.conf"
+gnome_schema="org.gnome.desktop.interface"
+
+function set_theme() {
+  gtk_theme="$(grep 'gtk-theme-name' "$gtk3" | sed 's/.*\s*=\s*//')"
+  icon_theme="$(grep 'gtk-icon-theme-name' "$gtk3" | sed 's/.*\s*=\s*//')"
+  cursor_theme="$(grep 'gtk-cursor-theme-name' "$gtk3" | sed 's/.*\s*=\s*//')"
+  font_name="$(grep 'gtk-font-name' "$gtk3" | sed 's/.*\s*=\s*//')"
+  gsettings set "$gnome_schema" gtk-theme "$gtk_theme"
+  gsettings set "$gnome_schema" icon-theme "$icon_theme"
+  gsettings set "$gnome_schema" cursor-theme "$cursor_theme"
+  gsettings set "$gnome_schema" font-name "$font_name"
+}
+
+function toggle() {
+  gtk_theme="$(gsettings get $gnome_schema gtk-theme)"
+  if [[ "$gtk_theme" == *'dark'* ]]; then
+    sed 's/dark/light/g' -i $gtk3 -i $foot -i $hypr
+    sed 's/"dark"/"light"/g' -i $gtk2
+  else
+    sed 's/light/dark/g' -i $gtk3 -i $foot -i $hypr
+    sed 's/"light"/"dark"/g' -i $gtk2
+  fi
+  set_theme
+  pkill -SIGUSR1 foot
+}
+
+if [[ $1 == 'toggle' ]]; then toggle; fi
+if [[ $1 == 'set' ]]; then set_theme; fi

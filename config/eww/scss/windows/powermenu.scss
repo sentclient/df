@@ -1,0 +1,29 @@
+.powermenu {
+  background-color: rgba(black, 0.4);
+
+  .widget {
+    @include floating_widget;
+
+    .shutdown {
+      color: $red;
+    }
+
+    .reboot {
+      color: $green;
+    }
+
+    .suspend {
+      color: $blue;
+    }
+
+    .exit {
+      color: $pink;
+    }
+  }
+
+  button {
+    @include button($radius: $radius);
+    padding: 2rem;
+    font-size: 4rem;
+  }
+}

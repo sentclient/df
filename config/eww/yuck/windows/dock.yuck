@@ -1,0 +1,29 @@
+(defwidget dock [] 
+  (eventbox
+    :class "dock"
+    :onhover "eww update dock_rev=true"
+    :onhoverlost "eww update dock_rev=false"
+    (revealer
+      :reveal {dock_rev || hyprland.active_empty}
+      :transition "slideup"
+      (box 
+        :class "apps" 
+        :halign "center" 
+        (eventbox 
+          :hexpand true 
+          :vexpand true 
+          :cursor "pointer" 
+          :halign "center" 
+          :valign "center"
+          (button 
+            :class "launcher_btn" 
+            :onclick "actions launcher" ""
+          )
+        )
+        (for app in {apps.dock_apps}
+          (dock_app :app app)
+        )
+      )
+    )
+  )
+)

@@ -1,0 +1,22 @@
+$assets: "assets/";
+$avatar: $assets + "choso.jpg";
+$bell: $assets + "bell.png";
+$accent: $blue;
+$gaps: 8px;
+
+$text_shadow: 2px 2px 2px rgba(black, 0.5);
+$radius: 1.5rem;
+$hover: if($theme=='light', transparentize($fg, 0.8), transparentize($fg, 0.91));
+
+$border_color: rgba(white, 0.002);
+$border_width: 1px;
+$border: $border_width solid $border_color;
+
+$button_radius: $radius * 0.5;
+$button_bg: if($theme=='light', transparentize($fg, 0.85), transparentize($fg, 0.94));
+
+* {
+  all: unset;
+  transition: 200ms;
+  font-family: "SF Pro", "Font Awesome 6 Pro Solid";
+}

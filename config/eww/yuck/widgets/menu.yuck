@@ -1,0 +1,169 @@
+(defwidget profile []
+	(box :class "profile" :space-evenly false :spacing 10
+    (box :class "image" :halign "start" :valign "start")
+    (box :orientation "v" :space-evenly false :hexpand true :spacing 25
+      (box :orientation "v" 
+        (box :class "info" :space-evenly false :orientation "v" :spacing 5
+          (label :class "name"  :text {details.user} :xalign 0)
+          (label :class "uptime" :text {details.uptime} :xalign 0)
+        )
+      )
+      (box :halign "end" :spacing 15
+        (eventbox :cursor "pointer"
+          (button :class "power" :onclick "eww open powermenu" ""))
+        (eventbox :cursor "pointer"
+          (button :class "exit" :onclick "hyprctl dispatch exit" ""))
+      )
+    )
+	)
+)
+
+(defwidget utils_button [icon action css] 
+  (eventbox :cursor "pointer"
+    (button :class css :onclick action icon)
+  )
+)
+
+(defwidget utils []
+  (box 
+    :class "utils" 
+    :orientation "v" 
+    :spacing 20
+    (box  
+      :spacing 20
+      (utils_button 
+        :css "dnd ${notifications.dnd}" 
+        :icon {notifications.dnd ? "" : ""}
+        :action "scripts/notifications toggle"
+      )
+      (utils_button 
+        :css "nightlight ${nightlight.state}"
+        :icon {nightlight.icon}
+        :action "scripts/nightlight toggle"
+      )
+      (utils_button 
+        :css "theme ${theme}"
+        :icon ""
+        :action "scripts/theme toggle"
+      )
+      (utils_button 
+        :css "colorpicker"
+        :icon ""
+        :action "actions colorpicker"
+      )
+    )
+    (box 
+      :spacing 20
+      (utils_button 
+        :css "screenshot"
+        :icon ""
+        :action "actions screenshot full"
+      )
+      (utils_button 
+        :css "screenshot"
+        :icon ""
+        :action "actions screenshot crop"
+      )
+      (utils_button 
+        :css "update"
+        :icon "󰮯"
+        :action "actions update"
+      )
+      (utils_button 
+        :css "powerprofile ${powerprofile.profile}"
+        :icon {powerprofile.icon}
+        :action "scripts/powerprofile toggle"
+      )
+    )
+  )
+)
+
+(defwidget menu_network []
+  (box :class "network" :space-evenly false :spacing 10
+    (label :class "icon" :text "")
+    (label :class "name" :text {network.name})
+    (box :halign "end" :hexpand true :spacing 10 :space-evenly false
+      (box :space-evenly false :spacing 10
+        (label :text "") 
+        (label :text "${round(EWW_NET.enp4s0.NET_DOWN / 1000000, 2)}MB" :xalign 0))
+      (box :space-evenly false :spacing 10
+        (label :text "") 
+        (label :text "${round(EWW_NET.enp4s0.NET_UP / 1000000, 2)}MB" :xalign 0))
+    )
+  )
+)
+
+(defwidget sliders []
+  (box :class "sliders" :orientation "v" :spacing 10 :hexpand true
+    (box
+      :class "volume" 
+      (box :space-evenly false :spacing 10
+        (eventbox :cursor "pointer"
+          (button 
+            :class {volume.volume}
+            :onclick "volume toggle" ""))
+        (eventbox :cursor "pointer"
+          :hexpand true :valign "center" 
+          (scale
+            :class "scale"
+            :min 0 
+            :max 101
+            :value {volume.volume == "muted" ? 0 : volume.volume}
+            :onchange "volume set {}"
+          )
+        )
+        (eventbox :cursor "pointer"
+          (button :class "pavucontrol" :onclick "pavucontrol &" ""))
+      )
+    )
+  )
+)
+
+(defwidget system_progress [data icon css tip] 
+  (box 
+    :class "progress" 
+    (circular-progress
+      :class css
+      :value data
+      :thickness 8
+      :tooltip tip
+      (overlay
+        :valign "center"
+        (label 
+          :class "icon" 
+          :text icon
+        )
+      )
+    )
+  )
+)
+
+(defwidget sys_info []
+  (box
+    :class "sys"
+    (system_progress
+      :css "cpu"
+      :tip "CPU ${round(EWW_CPU.avg,0)}%"
+      :data {round(EWW_CPU.avg, 0)} 
+      :icon ""
+    )
+    (system_progress
+      :css "ram"
+      :tip "RAM ${round(EWW_RAM.used_mem / 1048576, 2)}MB"
+      :data {round(EWW_RAM.used_mem_perc, 0)}
+      :icon ""
+    )
+    (system_progress
+      :css "temp"
+      :tip "Temperature ${EWW_TEMPS["AMDGPU_EDGE"]}°C"
+      :data {round(EWW_TEMPS.AMDGPU_EDGE, 0)} 
+      :icon ""
+    )
+    (system_progress
+      :css "disk"
+      :tip "SSD ${round(EWW_DISK["/"].used_perc, 2)}%"
+      :data {round(EWW_DISK["/"].used_perc, 0)}
+      :icon ""
+    )
+  )
+)

@@ -1,0 +1,76 @@
+(defwidget cal []
+  (box 
+    :class "calendar"
+    (calendar 
+      :day {date.day}
+      :month {date.month}
+      :year {date.year})
+  )
+)
+
+(defwidget menu_clock []
+  (box
+    :class "menu clock"
+    :space-evenly false
+    :orientation "v"
+    :spacing 5
+    (box
+      :space-evenly false
+      :spacing 10
+      :halign "center"
+      (label 
+        :class "time" 
+        :text {formattime(EWW_TIME, "%H", "America/Sao_Paulo")})
+      (box 
+        :class "timebox" 
+        :valign "center" 
+        :orientation "v" 
+        :spacing 10
+        (box  :class "timebox magenta" "")
+        (box :class "timebox green" "")
+        (box :class "timebox yellow" ""))
+      (label 
+        :class "time" 
+        :text {formattime(EWW_TIME, "%M", "America/Sao_Paulo")}))
+    (label 
+      :class "today" 
+      :text {formattime(EWW_TIME, "%A, %B %d", "America/Sao_Paulo")}
+    )
+  )
+)
+
+(defwidget left_weather []
+  (box :class "left_weather" :orientation "v" :space-evenly false
+    (label :class "city" :text {weather.city})
+    (box :class "infos_box" :space-evenly false :orientation "v"
+      (box :space-evenly false :class "infos"
+        (label :class "icon" :text {weather.icon} :style "color: ${weather.icon_color}")
+        (box :hexpand true
+          (box :orientation "v" :halign "start"
+            (label :class "description" :text {weather.description} :xalign 0)
+            (label :class "humidity" :text "Humidity: ${weather.humidity}%" :xalign 0)
+          )
+          (box :orientation "v" 
+            (box :space-evenly false :halign "end" :hexpand true 
+              (label :class "temp" :text "${round(weather.temp, 0)}" :xalign 1) 
+              (label :class "celcius" :text "°C" :xalign 1))
+            (box :space-evenly false :halign "end" :hexpand true 
+              (label :class "feels" :text "Feels like: ${round(weather.feels_like, 1)}" :xalign 1)
+              (label :class "celcius" :text "°C" :xalign 1))
+            
+          )
+        )
+      )
+      (box :spacing 25 :class "min_max" :halign "center"
+        (box :space-evenly false 
+          (label :class "min_icon" :text "") 
+          (label :class "min" :text "${round(weather.temp_min, 1)}")
+          (label :class "celcius" :text "°C" :xalign 1))
+        (box :space-evenly false 
+          (label :class "max_icon" :text "") 
+          (label :class "max" :text "${round(weather.temp_max, 1)}")
+          (label :class "celcius" :text "°C" :xalign 1))
+      )
+    )
+  )
+)

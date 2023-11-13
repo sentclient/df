@@ -1,0 +1,11 @@
+#!/bin/bash
+
+queryApp() {
+    dbus-send --session --type=method_call \
+        --dest=com.juminai.Apps \
+        /com/juminai/Apps \
+        com.juminai.Apps.FilterApps \
+        string:$1
+}
+
+if [[ $1 == 'query' ]]; then queryApp $2; fi

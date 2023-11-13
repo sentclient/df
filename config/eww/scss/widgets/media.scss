@@ -1,0 +1,136 @@
+@mixin player($style: 'widget') {
+  @if $style =='floating' {
+    @include floating_widget($padding: 0);
+  }
+
+  @if $style =='widget' {
+    background-color: $button_bg;
+    border-radius: $radius;
+  }
+
+  .artwork {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: $radius;
+    text-shadow: $text_shadow;
+    color: white;
+
+    .info {
+      padding: 1rem;
+
+      .title {
+        font-size: 1.4rem;
+        font-weight: bolder;
+      }
+
+      .artist,
+      .album {
+        font-size: 1.1rem;
+      }
+    }
+
+    .progress {
+      @include slider($radius: 0, $player: true);
+      min-width: 6rem;
+      margin-left: 5px;
+
+      &.spotify {
+        @include slider($color: $green, $player: true);
+      }
+
+      &.brave,
+      &.chrome {
+        @include slider($color: $yellow, $player: true);
+      }
+
+      &.chromium {
+        @include slider($color: $blue, $player: true)
+      }
+
+      &.cider {
+        @include slider($color: white, $player: true)
+      }
+    }
+
+    .bottom {
+      margin: 1rem;
+
+      .position {
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      .app {
+        font-size: 1.4rem;
+        margin-right: 5px;
+
+        &.spotify {
+          color: $green;
+        }
+
+        &.brave,
+        &.chrome {
+          color: $yellow;
+        }
+
+        &.firefox {
+          color: $red;
+        }
+
+        &.chromium {
+          color: $blue;
+        }
+      }
+
+      .controls {
+        color: white;
+
+        .loop,
+        .shuffle {
+          color: $green;
+        }
+
+        .toggle {
+          font-size: 1.6rem;
+        }
+
+        .previous,
+        .next,
+        .loop,
+        .shuffle {
+          font-size: 1.3rem;
+        }
+
+        .disabled {
+          color: transparentize(white, 0.5);
+        }
+      }
+    }
+  }
+
+  .volume {
+    padding: 1rem;
+
+    .scale {
+      @include slider;
+
+      &.spotify {
+        @include slider($color: $green);
+      }
+
+      &.brave,
+      &.chrome {
+        @include slider($color: $yellow);
+      }
+
+      &.chromium {
+        @include slider($color: $blue);
+      }
+
+      &.cider {
+        @include slider($color: $fg);
+      }
+    }
+  }
+}

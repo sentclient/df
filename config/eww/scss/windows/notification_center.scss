@@ -1,0 +1,29 @@
+.notification_center {
+  .widget {
+    @include floating_widget($padding: 1.2rem);
+
+    .header {
+      font-size: 1.5rem;
+      min-width: 26rem;
+      color: $fg;
+      margin: 0.5rem 1rem 1.5rem;
+
+      .label {
+        font-weight: bold;
+      }
+
+      .clear {
+        @include button;
+        padding: .5rem 1rem;
+      }
+    }
+
+    .scroll {
+      min-height: 50rem;
+
+      .notification {
+        @include notifications($style: 'widget');
+      }
+    }
+  }
+}

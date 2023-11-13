@@ -1,0 +1,24 @@
+.dock {
+  .apps {
+    @include floating_widget;
+    padding: 0.5rem;
+  }
+
+  .launcher_btn {
+    @include button($flat: true, $radius: $radius);
+    font-size: 2rem;
+    padding: 1rem;
+  }
+
+  .icons {
+    @include button($flat: true, $radius: $radius);
+    padding: 0.4rem 0.6rem;
+
+    .icon {
+      min-width: 3.5rem;
+      min-height: 3.5rem;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+}

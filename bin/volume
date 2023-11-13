@@ -1,0 +1,24 @@
+#!/bin/bash
+# requires pamixer
+
+if [[ -z $(pgrep checkvolume) ]]; then
+  checkvolume &
+fi
+
+case $1 in
+set)
+  pamixer -u
+  pamixer --set-volume $2
+  ;;
+up)
+  pamixer -u
+  pamixer -i 2
+  ;;
+down)
+  pamixer -u
+  pamixer -d 2
+  ;;
+toggle)
+  pamixer -t
+  ;;
+esac

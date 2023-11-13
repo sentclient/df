@@ -1,0 +1,13 @@
+#!/bin/bash
+
+user="$(whoami)@$(hostnamectl --static)"
+kernel="$(uname -r)"
+os="$(awk -F '"' '/^NAME=/{print $2}' /etc/os-release)"
+wm="$XDG_CURRENT_DESKTOP"
+
+while true; do
+  uptime="$(uptime -p | sed -e 's/up //g')"
+
+  echo '{"user": "'$user'", "kernel": "'$kernel'", "os": "'$os'", "wm": "'$wm'", "uptime": "'$uptime'"}'
+  sleep 300
+done

@@ -1,0 +1,192 @@
+.menu {
+  .widget {
+    @include floating_widget;
+
+    .profile {
+      min-width: 25rem;
+      @include box;
+
+      .image {
+        background-image: url($avatar);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        min-height: 6rem;
+        min-width: 6rem;
+        border-radius: $radius;
+      }
+
+      .info {
+        color: $fg;
+
+        .name {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+
+        .uptime {
+          font-size: 1.2rem;
+        }
+      }
+
+      button {
+        @include button($radius: $radius*0.6);
+        padding: 1rem;
+        font-size: 1.6rem;
+      }
+
+      .exit {
+        color: $blue;
+      }
+
+      .power {
+        color: $red;
+      }
+    }
+
+    .utils {
+      @include box;
+
+      button {
+        @include button($radius: $radius);
+        font-size: 1.6rem;
+        padding: 1.5rem 0;
+      }
+
+      .update {
+        font-size: 1.75rem;
+      }
+
+      .theme,
+      .nightlight,
+      .powerprofile {
+
+        &.on,
+        &.power-saver {
+          background-color: $blue;
+
+          @if $theme =="dark" {
+            color: $bg;
+          }
+
+          @else {
+            color: $fg;
+          }
+        }
+      }
+
+      .dnd {
+        &.true {
+          background-color: $red;
+
+          @if $theme =="dark" {
+            color: $bg;
+          }
+
+          @else {
+            color: $fg;
+          }
+        }
+
+        &.false {
+          @if $theme =="dark" {
+            color: $yellow;
+          }
+
+          @else {
+            color: $fg;
+          }
+        }
+      }
+    }
+
+    .sys {
+      @include box;
+
+      .progress {
+        padding: 0.5rem;
+
+        circular-progress {
+          background-color: transparentize($fg, 0.9);
+
+          &.ram {
+            color: $pink;
+          }
+
+          &.cpu {
+            color: $blue;
+
+            label {
+              margin-left: 1px;
+            }
+          }
+
+          &.temp {
+            color: $red;
+
+            label {
+              margin-left: 1px;
+            }
+          }
+
+          &.disk {
+            color: $green;
+          }
+        }
+      }
+
+      .icon {
+        font-size: 2rem;
+        padding: 1.8rem;
+      }
+    }
+
+    .network {
+      @include box;
+
+      .icon,
+      .name {
+        background-color: transparentize($fg, 0.9);
+        padding: 0.5rem;
+        border-radius: $radius * 0.5;
+      }
+
+      .icon {
+        font-size: 1.5rem;
+      }
+    }
+
+    .sliders {
+      @include box;
+
+      .volume {
+        .scale {
+          @include slider($color: $blue, $width: 0.6rem);
+        }
+
+        .pavucontrol {
+          color: $fg;
+          font-size: 1.2rem;
+          padding: .5rem;
+          @include button($flat: true)
+        }
+
+        button {
+          @include button;
+          padding: 1rem;
+          font-size: 1.6rem;
+          color: $blue;
+        }
+
+        .muted {
+          color: $red;
+        }
+      }
+    }
+
+    .player {
+      @include player($style: 'widget');
+
+    }
+  }
+}

@@ -1,0 +1,39 @@
+#!/bin/bash
+
+function state() {
+  STATE=$(pgrep wlsunset)
+  if [[ -z $STATE ]]; then
+    echo 'off'
+  else
+    echo 'on'
+  fi
+}
+
+function get_icon() {
+  STATE=$(state)
+  if [[ $STATE == 'on' ]]; then
+    echo ""
+  else
+    echo ""
+  fi
+}
+
+function toggle() {
+  STATE=$(state)
+  if [[ $STATE == 'on' ]]; then
+    eww update nightlight='{"state": "off", "icon": ""}'
+    pkill wlsunset
+  else
+    eww update nightlight='{"state": "on", "icon": ""}'
+    wlsunset -t 3400
+  fi
+}
+
+function get() {
+  STATE=$(state)
+  ICON=$(get_icon)
+  echo '{"state": "'$STATE'", "icon": "'$ICON'"}'
+}
+
+if [[ $1 == 'toggle' ]]; then toggle; fi
+if [[ $1 == 'get' ]]; then get; fi

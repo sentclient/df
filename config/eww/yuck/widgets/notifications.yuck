@@ -1,0 +1,82 @@
+(defwidget notification [notification]
+  (box
+    :space-evenly false 
+    :orientation "v"
+    (box 
+      :class "infos"
+      :space-evenly false
+      (box
+        :halign "start"
+        :space-evenly false
+        :spacing 10
+        (label
+          :class "icon ${notification.app}"
+          :text {notification.glyph}
+        )
+        (label :class "app" :text {notification.app})
+        (label :class "circle" :text "")
+        (label :class "time" :text {notification.time})
+      )
+      (box
+        :halign "end"
+        :hexpand true
+        (eventbox
+          :cursor "pointer"
+          (button 
+            :class "close" 
+            :onclick "scripts/notifications close ${notification.id}"
+            "" 
+          )
+        )
+      )
+    )
+    (box  
+      :class "content ${notification.app}"
+      :orientation {notification.app == "Screenshot" ? "v" : "h"}
+      :space-evenly false 
+      :spacing 10
+      (box
+        :class "image ${notification.app}"
+        :style "background-image: url('${notification.image}')"
+        :valign "center"
+        :halign "center"
+        :visible {notification.image != "null"}
+      )
+      (box
+        :visible {notification.app != "Screenshot"}
+        :orientation "v"
+        :space-evenly false
+        (label
+          :visible {notification.summary != "null"}
+          :class "summary"
+          :limit-width 30
+          :wrap true
+          :xalign 0
+          :text {notification.summary}
+          :halign "start"
+        )
+        (label
+          :visible {notification.body != "null"}
+          :class "body"
+          :limit-width 120
+          :wrap true
+          :xalign 0
+          :text {notification.body}
+          :halign "start"
+        )
+      )
+    )
+    (box
+      :class "actions"
+      :spacing 5
+      (for action in {notification.actions}
+        (eventbox :cursor "pointer"
+          (button :class "action" 
+            :onclick "scripts/notifications action ${notification.id} ${action.id}"
+            (label :text {action.label})
+          )
+        )
+      )
+    )
+  )
+)

@@ -1,0 +1,23 @@
+.volume_pop {
+  @include floating_widget;
+  padding: .1rem;
+
+  label {
+    @if $theme =="dark" {
+      color: lighten($color: $bg, $amount: 10%);
+    }
+
+    @else {
+      color: darken($color: $bg, $amount: 10%);
+    }
+
+    font-size: 2rem;
+    margin: 0.8rem 0;
+    text-shadow: $text_shadow;
+  }
+
+  .scale {
+    @include slider($width: 3rem);
+    min-height: 15rem;
+  }
+}

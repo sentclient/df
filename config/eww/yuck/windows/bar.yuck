@@ -1,0 +1,33 @@
+(defwidget bar []
+  (box 
+    :class "bar"
+    (box 
+      :class "widget"
+      (box 
+        :class "start" 
+        :halign "start" 
+        :space-evenly false
+        (clock) (music)
+      )
+      (box 
+        :class "center" 
+        :halign "center"
+        (workspaces)
+      )
+      (box 
+        :class "end" 
+        :halign "end" 
+        :space-evenly false
+        (bell) (network) (volume)
+        (eventbox 
+          :cursor "pointer" 
+          :class "eventbox"
+          (button 
+            :class "powerbutton" 
+            :onclick "actions menu" ""
+          )
+        )
+      )
+    )
+  )
+)

@@ -1,0 +1,81 @@
+#!/bin/bash
+
+screenshot() {
+  if [[ $1 == "full" ]]; then
+    dripshot --full
+  else
+    dripshot --crop
+  fi
+}
+
+update() {
+  foot -T flooat -e $SHELL -c 'yay -Syu'
+}
+
+function menu() {
+  MENU=$(eww get menu_rev)
+  MEDIA=$(eww windows | grep -w *media)
+
+  if [[ $MENU == false ]]; then
+    if [[ $MEDIA == "*media" ]]; then
+      eww close media
+    fi
+    eww update menu_rev=true
+  else
+    eww update menu_rev=false
+  fi
+}
+
+function calendar() {
+  MENU=$(eww get calendar_rev)
+
+  if [[ $MENU == false ]]; then
+    eww update calendar_rev=true
+  else
+    eww update calendar_rev=false
+  fi
+}
+
+function notifications() {
+  MENU=$(eww get noti_center_rev)
+
+  if [[ $MENU == false ]]; then
+    eww update noti_center_rev=true
+  else
+    eww update noti_center_rev=false
+  fi
+}
+
+function launcher() {
+  MENU=$(eww get menu_rev)
+  MEDIA=$(eww windows | grep -w *media)
+
+  if [[ $MENU == true ]]; then
+    eww update menu_rev=false
+  fi
+  if [[ $MEDIA == "*media" ]]; then
+    eww close media
+  fi
+
+  eww open --toggle launcher
+  $XDG_CONFIG_HOME/eww/scripts/apps query
+}
+
+function media() {
+  MENU=$(eww get menu_rev)
+
+  if [[ $MENU == true ]]; then
+    eww update menu_rev=false
+  fi
+
+  eww open --toggle media
+}
+
+if [[ $1 == "colorpicker" ]]; then colorpicker; fi
+if [[ $1 == "screenshot" ]]; then screenshot $2; fi
+if [[ $1 == "update" ]]; then update; fi
+if [[ $1 == "menu" ]]; then menu; fi
+if [[ $1 == "media" ]]; then media; fi
+if [[ $1 == "notifications" ]]; then notifications; fi
+if [[ $1 == "launcher" ]]; then launcher; fi
+if [[ $1 == "calendar" ]]; then calendar; fi

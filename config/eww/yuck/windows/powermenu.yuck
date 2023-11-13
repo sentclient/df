@@ -1,0 +1,25 @@
+(defwidget powermenu []
+  (box :class "powermenu"
+    (box :class "widget" :halign "center" :valign "center" :spacing 20
+      (btn_shutdown) (btn_reboot) (btn_suspend) (btn_exit)
+    )
+  )
+)
+
+(defwidget btn [name action icon]
+  (eventbox :cursor "pointer"
+    (button :class name :onclick action icon)
+  )
+)
+
+(defwidget btn_shutdown []
+  (btn :name "shutdown" :action "systemctl poweroff -i" :icon ""))
+
+(defwidget btn_reboot []
+  (btn :name "reboot" :action "systemctl reboot -i" :icon ""))
+
+(defwidget btn_suspend []
+  (btn :name "suspend" :action "systemctl suspend -i" :icon ""))
+
+(defwidget btn_exit []
+  (btn :name "exit" :action "hyprctl dispatch exit" :icon ""))

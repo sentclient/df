@@ -1,0 +1,229 @@
+.bar {
+  .widget {
+    background-color: $bg;
+    padding: 0.4rem;
+    font-size: 1.4rem;
+    margin-bottom: $gaps;
+    box-shadow: 0 0 5px 0 rgba(black, 0.5);
+
+    .app {
+      .icon {
+        &.code-oss {
+          color: $blue;
+        }
+
+        &.Brave-browser {
+          color: $yellow;
+        }
+
+        &.foot {
+          color: $fg;
+        }
+      }
+
+      .name,
+      .icon {
+        font-size: 1rem;
+        color: $fg;
+        font-weight: 500;
+      }
+    }
+
+    .powerbutton {
+      padding: 0 1rem;
+      @include button($flat: true);
+      color: $red;
+    }
+
+    .bell {
+      padding: 0 1rem;
+      @include button($flat: true);
+
+      .count {
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 0 0.4rem;
+
+        @if $theme =="dark" {
+          color: darken($color: $fg, $amount: 5%);
+        }
+
+        @else {
+          color: lighten($color: $fg, $amount: 5%);
+        }
+      }
+
+      .nothing {
+        @if $theme =="dark" {
+          color: darken($color: $fg, $amount: 25%);
+        }
+
+        @else {
+          color: lighten($color: $fg, $amount: 25%);
+        }
+      }
+
+      .indicator {
+        font-size: 0.8rem;
+        color: $yellow;
+        margin: 0 -12px;
+        text-shadow: 0 1px 2px black;
+      }
+    }
+
+    .workspaces {
+      @include button;
+
+      .button {
+        padding: 0 1rem;
+
+        .workspace {
+          border-radius: 1rem;
+          min-height: 0.8rem;
+          margin: 0.8rem 0;
+
+          &.empty {
+            min-width: 0.8rem;
+            background: lighten($color: $bg, $amount: 15%);
+
+            @if $theme =="light" {
+              background: darken($color: $bg, $amount: 5%);
+            }
+          }
+
+          &.occupied {
+            background: $accent;
+            min-width: 1.1rem;
+          }
+
+          &.active {
+            background: $accent;
+            min-width: 2rem;
+          }
+
+          &:hover {
+            &.empty {
+              background: lighten($color: $bg, $amount: 15%);
+
+              @if $theme =="light" {
+                background: lighten($color: $bg, $amount: 5%);
+              }
+            }
+
+            &.occupied,
+            &.active {
+              background: lighten($color: $accent, $amount: 10%);
+
+              @if $theme =="light" {
+                background: darken($color: $accent, $amount: 5%);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .music {
+      padding: 0 1rem;
+      @include button($flat: true);
+
+      .icon {
+        font-size: 1.2rem;
+
+        &.spotify {
+          color: $green;
+        }
+
+        &.brave {
+          color: $yellow;
+        }
+
+        &.firefox {
+          color: $red;
+        }
+      }
+
+      .title {
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+    }
+
+    .network {
+      padding: 0 1rem;
+      @include button($flat: true);
+
+      &.down {
+        color: $red;
+      }
+
+      &.up {
+        @if $theme =="dark" {
+          color: $blue;
+        }
+
+        @else {
+          color: $fg;
+        }
+      }
+    }
+
+    .volume {
+      padding: 0 1rem;
+      @include button($flat: true);
+
+      .icon {
+        @if $theme =="dark" {
+          color: $green;
+        }
+
+        @else {
+          color: $fg;
+        }
+
+        &.muted {
+          color: $red;
+        }
+      }
+
+      .scale {
+        @if $theme =="dark" {
+          @include slider($color: $green);
+        }
+
+        @else {
+          @include slider($color: $fg)
+        }
+
+        min-width: 6rem;
+        margin-left: 5px;
+      }
+    }
+
+    .date {
+      padding: 0 1rem;
+      @include button($flat: true);
+
+      .period {
+        font-size: 0.5rem;
+      }
+
+      .today {
+        font-size: 1.05rem;
+      }
+
+      .clock {
+
+        &.hour,
+        &.minute {
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+
+        &.ellipsis {
+          margin-top: -0.4rem;
+        }
+      }
+    }
+  }
+}
