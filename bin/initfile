@@ -1,0 +1,13 @@
+#!/bin/bash
+
+killall eww
+pkill python
+
+eww daemon
+eww open bar
+eww open dock
+eww open notification_center
+eww open notifications
+eww open desktop
+eww open menu
+eww open weather
